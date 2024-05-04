@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Database</title>
+</head>
+<body>
+    <script>
+        function Student(name, age, grade, subjects) {
+            this.name = name;
+            this.age = age;
+            this.grade = grade;
+            this.subjects = subjects;
+        }
+
+        var students = [];
+
+        function addStudent(student) {
+            students.push(student);
+        }
+
+        function displayStudents() {
+            var displayString = "Student Database:<br>";
+            for (var i = 0; i < students.length; i++) {
+                displayString += "Name: " + students[i].name + ", Age: " + students[i].age +
+                    ", Grade: " + students[i].grade + ", Subjects: " + students[i].subjects.join(", ") + "<br>";
+            }
+            document.write(displayString);
+        }
+
+        function calculateAverageGrade() {
+            var totalGrade = 0;
+            for (var i = 0; i < students.length; i++) {
+                totalGrade += students[i].grade;
+            }
+            var averageGrade = totalGrade / students.length;
+            return averageGrade;
+        }
+
+        function searchStudentByName(name) {
+            for (var i = 0; i < students.length; i++) {
+                if (students[i].name === name) {
+                    return students[i];
+                }
+            }
+            return null;
+        }
+
+        function searchStudentByGrade(grade) {
+            var matchingStudents = [];
+            for (var i = 0; i < students.length; i++) {
+                if (students[i].grade === grade) {
+                    matchingStudents.push(students[i]);
+                }
+            }
+            return matchingStudents;
+        }
+
+        // Adding sample students
+        addStudent(new Student("ANKITA", 16, 11, ["Math", "Science", "English"]));
+        addStudent(new Student("NITYA", 15, 10, ["History", "Geography", "Math"]));
+        addStudent(new Student("KRITI", 17, 12, ["Physics", "Chemistry", "Biology"]));
+
+        // Display all students
+        displayStudents();
+
+        // Calculate average grade
+        var averageGrade = calculateAverageGrade();
+        document.write("<br>Average Grade: " + averageGrade.toFixed(2) + "<br>");
+
+        // Search for a student by name
+        var searchResultByName = searchStudentByName("Bob");
+        if (searchResultByName) {
+            document.write("<br>Student found by name:<br>Name: " + searchResultByName.name + ", Age: " + searchResultByName.age +
+                ", Grade: " + searchResultByName.grade + ", Subjects: " + searchResultByName.subjects.join(", ") + "<br>");
+        } else {
+            document.write("<br>No student found with the given name.<br>");
+        }
+
+        // Search for students by grade
+        var searchResultByGrade = searchStudentByGrade(11);
+        if (searchResultByGrade.length > 0) {
+            document.write("<br>Students found by grade 11:<br>");
+            for (var j = 0; j < searchResultByGrade.length; j++) {
+                document.write("Name: " + searchResultByGrade[j].name + ", Age: " + searchResultByGrade[j].age +
+                    ", Grade: " + searchResultByGrade[j].grade + ", Subjects: " + searchResultByGrade[j].subjects.join(", ") + "<br>");
+            }
+        } else {
+            document.write("<br>No students found in grade 11.<br>");
+        }
+    </script>
+</body>
+</html>
